@@ -58,8 +58,6 @@
               label="Link Customer (Optional)"
               emit-value
               map-options
-              option-value="id"
-              option-label="name"
               clearable
             />
             <q-input filled v-model="editedTicket.assigned_to" label="Assigned To" />
@@ -101,13 +99,26 @@ interface MaintenanceTicket {
   device: string;
   problem_description: string;
   status: 'pending' | 'in_progress' | 'completed' | 'cancelled';
-  customer?: Customer; // Relation to Customer
+  customer?: Customer;
   assigned_to?: string;
   start_date?: string;
   end_date?: string;
   createdAt: string;
   updatedAt: string;
   publishedAt: string;
+}
+
+// Separate interface for the form model to handle the customer ID from q-select
+interface MaintenanceTicketForm {
+  id?: number;
+  customer_name: string;
+  device: string;
+  problem_description: string;
+  status: 'pending' | 'in_progress' | 'completed' | 'cancelled';
+  customer?: number; // This will hold the ID
+  assigned_to?: string;
+  start_date?: string;
+  end_date?: string;
 }
 
 const maintenanceTickets = ref<MaintenanceTicket[]>([]);
@@ -117,7 +128,9 @@ const filter = ref('');
 const showDialog = ref(false);
 const isEditing = ref(false);
 const saving = ref(false);
-const editedTicket = ref<Partial<MaintenanceTicket>>({
+
+// Use the new form interface for the editedTicket ref
+const editedTicket = ref<MaintenanceTicketForm>({
   customer_name: '',
   device: '',
   problem_description: '',
@@ -140,7 +153,7 @@ const columns: QTableColumn<MaintenanceTicket>[] = [
 const fetchMaintenanceTickets = async () => {
   loading.value = true;
   try {
-    const response = await api.get('/maintenances?populate=customer', { // Populate customer relation
+    const response = await api.get('/maintenances?populate=customer', {
       headers: {
         Authorization: `Bearer ${authStore.token}`,
       },
@@ -167,7 +180,7 @@ const fetchCustomers = async () => {
       },
     });
     customers.value = response.data.data;
-    customerOptions.value = customers.value.map(c => ({ label: c.name, value: c.id }));
+    customerOptions.value = customers.value.map(c => ({ label: `${c.name} (${c.email})`, value: c.id }));
   } catch (error: unknown) {
     let errorMessage = 'Failed to fetch customers for selection.';
     if (axios.isAxiosError(error) && error.response?.data?.error?.message) {
@@ -186,23 +199,36 @@ const openAddDialog = () => {
     device: '',
     problem_description: '',
     status: 'pending',
-    customer: undefined,
     assigned_to: '',
-    start_date: new Date().toISOString().slice(0, 16), // Current datetime for default
-    end_date: undefined,
+    start_date: new Date().toISOString().slice(0, 16),
   };
   showDialog.value = true;
 };
 
 const openEditDialog = (ticket: MaintenanceTicket) => {
   isEditing.value = true;
-  // Ensure customer relation is handled correctly for q-select
-  editedTicket.value = {
-    ...ticket,
-    customer: ticket.customer ? ticket.customer.id : undefined, // Pass ID for q-select
-    start_date: ticket.start_date ? new Date(ticket.start_date).toISOString().slice(0, 16) : undefined,
-    end_date: ticket.end_date ? new Date(ticket.end_date).toISOString().slice(0, 16) : undefined,
+
+  // Build the form object conditionally to satisfy exactOptionalPropertyTypes
+  const formValue: MaintenanceTicketForm = {
+    id: ticket.id,
+    customer_name: ticket.customer_name,
+    device: ticket.device,
+    problem_description: ticket.problem_description,
+    status: ticket.status,
+    start_date: ticket.start_date ? new Date(ticket.start_date).toISOString().slice(0, 16) : '',
   };
+
+  if (ticket.customer) {
+    formValue.customer = ticket.customer.id;
+  }
+  if (ticket.assigned_to) {
+    formValue.assigned_to = ticket.assigned_to;
+  }
+  if (ticket.end_date) {
+    formValue.end_date = new Date(ticket.end_date).toISOString().slice(0, 16);
+  }
+
+  editedTicket.value = formValue;
   showDialog.value = true;
 };
 
@@ -219,7 +245,7 @@ const closeDialog = () => {
 const saveMaintenanceTicket = async () => {
   saving.value = true;
   try {
-    const ticketData = { data: editedTicket.value }; // Strapi expects data wrapped in 'data'
+    const ticketData = { data: editedTicket.value };
     if (isEditing.value && editedTicket.value.id) {
       await api.put(`/maintenances/${editedTicket.value.id}`, ticketData, {
         headers: {
@@ -235,7 +261,7 @@ const saveMaintenanceTicket = async () => {
       });
       $q.notify({ type: 'positive', message: 'Maintenance ticket added successfully!' });
     }
-    await fetchMaintenanceTickets(); // Refresh list
+    await fetchMaintenanceTickets();
     closeDialog();
   } catch (error: unknown) {
     let errorMessage = 'Failed to save maintenance ticket.';
@@ -265,7 +291,7 @@ const confirmDelete = (id: number) => {
           },
         });
         $q.notify({ type: 'positive', message: 'Maintenance ticket deleted successfully!' });
-        await fetchMaintenanceTickets(); // Refresh list
+        await fetchMaintenanceTickets();
       } catch (error: unknown) {
         let errorMessage = 'Failed to delete maintenance ticket.';
         if (axios.isAxiosError(error) && error.response?.data?.error?.message) {

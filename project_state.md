@@ -47,7 +47,7 @@ This document tracks the progress of the "Your Shop" ERP system development.
 18. **Verification of Enhanced Display:** Successfully verified that the frontend displays the enhanced product data.
 19. **User Authentication (Frontend):** Implemented Pinia store, login page, and router guards for authentication.
 20. **Authentication Error Resolution:** Fixed authentication-related compilation/linting errors in `LoginPage.vue`, `MainLayout.vue`, and `auth.ts`.
-21. **Authentication Error Resolution (LoginPage.vue specific):** Applied specific fixes to `LoginPage.vue` for TypeScript and ESLint errors related to catch variables and `QNotifyOptions`.
+21. **Authentication Error Resolution (LoginPage.vue specific)::** Applied specific fixes to `LoginPage.vue` for TypeScript and ESLint errors related to catch variables and `QNotifyOptions`.
 22. **Authentication Error Resolution (router/index.ts specific):** Fixed `await` of non-Promise error in `router/index.ts`.
 23. **Authentication Error Resolution (router/index.ts async keyword):** Removed `async` keyword from `router/index.ts` `beforeEach` guard.
 24. **Authentication Error Resolution (QNotify):** Fixed `$q.notify` is not a function error by enabling the Notify plugin in `quasar.config.ts`.
