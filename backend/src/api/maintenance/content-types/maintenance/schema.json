@@ -1,0 +1,54 @@
+{
+  "kind": "collectionType",
+  "collectionName": "maintenances",
+  "info": {
+    "singularName": "maintenance",
+    "pluralName": "maintenances",
+    "displayName": "Maintenance",
+    "description": "Manages repair and maintenance tickets for devices."
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "customer_name": {
+      "type": "string",
+      "required": true
+    },
+    "device": {
+      "type": "string",
+      "required": true
+    },
+    "problem_description": {
+      "type": "text",
+      "required": true
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": [
+        "pending",
+        "in_progress",
+        "completed",
+        "cancelled"
+      ],
+      "default": "pending",
+      "required": true
+    },
+    "customer": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::customer.customer"
+    },
+    "assigned_to": {
+      "type": "string"
+    },
+    "start_date": {
+      "type": "datetime",
+      "default": "NOW"
+    },
+    "end_date": {
+      "type": "datetime"
+    }
+  }
+}
