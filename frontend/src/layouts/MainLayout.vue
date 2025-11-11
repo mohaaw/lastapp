@@ -49,12 +49,6 @@ const linksList: EssentialLinkProps[] = [
     link: '/',
   },
   {
-    title: 'Products Management',
-    caption: 'Manage your shop products',
-    icon: 'store',
-    link: '/products',
-  },
-  {
     title: 'Customer Management',
     caption: 'Manage your customers',
     icon: 'people',
@@ -67,10 +61,40 @@ const linksList: EssentialLinkProps[] = [
     link: '/pos',
   },
   {
+    title: 'Product Templates',
+    caption: 'Manage product templates',
+    icon: 'style',
+    link: '/product-templates',
+  },
+  {
+    title: 'Product Variants',
+    caption: 'Manage product variants',
+    icon: 'inventory_2',
+    link: '/product-variants',
+  },
+  {
+    title: 'Stock Locations',
+    caption: 'Manage stock locations',
+    icon: 'warehouse',
+    link: '/stock-locations',
+  },
+  {
+    title: 'Stock Moves',
+    caption: 'Track inventory movements',
+    icon: 'sync_alt',
+    link: '/stock-moves',
+  },
+  {
     title: 'Maintenance Management',
     caption: 'Manage repair tickets',
     icon: 'build',
     link: '/maintenance',
+  },
+  {
+    title: 'Settings',
+    caption: 'Configure shop settings',
+    icon: 'settings',
+    link: '/settings/general',
   },
 ];
 

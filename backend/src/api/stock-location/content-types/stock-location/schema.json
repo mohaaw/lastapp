@@ -1,0 +1,20 @@
+{
+  "kind": "collectionType",
+  "collectionName": "stock_locations",
+  "info": {
+    "singularName": "stock-location",
+    "pluralName": "stock-locations",
+    "displayName": "Stock Location"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    }
+  }
+}

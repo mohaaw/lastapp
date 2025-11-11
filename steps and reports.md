@@ -73,7 +73,66 @@ This document tracks the progress of the "Your Shop" ERP system development.
 44. **Final Bugfix (`MainLayout.vue`):** Removed duplicate navigation links from the main layout.
 45. **Final Bugfix (`MainLayout.vue`):** Removed default Quasar framework links from the navigation bar.
 
-## Final Application State
+46. **Typo Fix (`SettingsPage.vue`):** Corrected the `/api/api/` typo in `SettingsPage.vue` by changing API calls to use relative paths.
+47. **Cleanup (`SettingsPage.vue`):** Deleted `frontend/src/pages/SettingsPage.vue` as part of the cleanup process.
+48. **Cleanup (`routes.ts`):** Removed the `/settings` route from `frontend/src/router/routes.ts`.
+49. **Cleanup (`MainLayout.vue`):** Removed the "Settings" link from the navigation menu in `frontend/src/layouts/MainLayout.vue`.
+
+### Phase 4: Comprehensive Settings Module
+50. **Backend (`tax-rates.json`):** Created new component `backend/src/components/settings/tax-rates.json` for reusable tax rate fields.
+51. **Backend (`general-setting`):** Created new singleton `backend/src/api/general-setting/content-types/general-setting/schema.json`.
+52. **Backend (`financial-setting`):** Created new singleton `backend/src/api/financial-setting/content-types/financial-setting/schema.json`.
+53. **Backend (`inventory-setting`):** Created new singleton `backend/src/api/inventory-setting/content-types/inventory-setting/schema.json`.
+54. **Backend (`email-setting`):** Created new singleton `backend/src/api/email-setting/content-types/email-setting/schema.json`.
+55. **Frontend (`SettingsLayout.vue`):** Created new layout `frontend/src/layouts/SettingsLayout.vue` for the settings module.
+56. **Frontend (`MainLayout.vue`):** Added "Settings" link to the main navigation menu.
+57. **Frontend (`routes.ts`):** Added new `/settings` route structure with `SettingsLayout` and child pages.
+58. **Frontend (`GeneralSettings.vue`):** Created new page `frontend/src/pages/GeneralSettings.vue`.
+59. **Frontend (`FinancialSettings.vue`):** Created new page `frontend/src/pages/FinancialSettings.vue`.
+60. **Frontend (`InventorySettings.vue`):** Created new page `frontend/src/pages/InventorySettings.vue`.
+61. **Frontend (`EmailSettings.vue`):** Created new page `frontend/src/pages/EmailSettings.vue`.
+62. **Frontend (`AppSettings.vue`):** Created new page `frontend/src/pages/AppSettings.vue`.
+
+### Phase 5: Final Report Correction
+63. **Documentation (`steps and reports.md`):** Corrected the "Navigation Bar Content" section to include the new Settings link.
+64. **Documentation (`steps and reports.md`):** Corrected the "Next Step" section to include permissions for the new settings singletons.
+
+### Phase 6: Advanced Products Module Refactor
+65. **Cleanup (`ProductsPage.vue`):** Deleted `frontend/src/pages/ProductsPage.vue` to remove the old product management page.
+66. **Cleanup (`MainLayout.vue`):** Removed "Products Management" link from the main navigation menu.
+67. **Cleanup (`routes.ts`):** Removed the old `/products` route from `frontend/src/router/routes.ts`.
+68. **Backend Refactor (`product` -> `product-template`):** Renamed API directory `backend/src/api/product` to `backend/src/api/product-template`.
+69. **Backend Refactor (`product` -> `product-template`):** Renamed content-type directory `.../product` to `.../product-template`.
+70. **Backend Refactor (`product-template`):** Updated `schema.json` with new names and removed duplicate fields.
+71. **Backend Refactor (`product-template`):** Added `hasVariants` boolean field to `schema.json`.
+72. **Backend (`product-variant`):** Created new collection type `backend/src/api/product-variant/content-types/product-variant/schema.json` and added inverse relation to `product-template`.
+73. **Backend (`stock-location`):** Created new collection type `backend/src/api/stock-location/content-types/stock-location/schema.json`.
+74. **Backend (`stock-move`):** Created new collection type `backend/src/api/stock-move/content-types/stock-move/schema.json`.
+75. **Frontend (`ProductTemplatesPage.vue`):** Created new page `frontend/src/pages/ProductTemplatesPage.vue`.
+76. **Frontend (`ProductVariantsPage.vue`):** Created new page `frontend/src/pages/ProductVariantsPage.vue`.
+77. **Frontend (`StockLocationsPage.vue`):** Created new page `frontend/src/pages/StockLocationsPage.vue`.
+78. **Frontend (`StockMovesPage.vue`):** Created new page `frontend/src/pages/StockMovesPage.vue`.
+79. **Frontend (`MainLayout.vue`):** Added new product module links to the main navigation.
+80. **Frontend (`routes.ts`):** Added new product module routes.
+81. **Backend (`product-variant`):** Created missing controller, routes, and service files for product-variant API.
+82. **Backend (`stock-location`):** Created missing controller, routes, and service files for stock-location API.
+83. **Backend (`stock-move`):** Created missing controller, routes, and service files for stock-move API.
+84. **Frontend (`ProductTemplatesPage.vue`):** Fixed vue-tsc (QTable Columns), no-explicit-any, no-unused-vars, and no-floating-promises errors.
+85. **Frontend (`ProductVariantsPage.vue`):** Fixed vue-tsc (QTable Columns), no-explicit-any, no-unused-vars, and no-floating-promises errors.
+86. **Frontend (`StockLocationsPage.vue`):** Fixed vue-tsc (QTable Columns), no-explicit-any, no-unused-vars, and no-floating-promises errors.
+87. **Frontend (`StockMovesPage.vue`):** Fixed vue-tsc (QTable Columns), no-explicit-any, no-unused-vars, and no-floating-promises errors.
+88. **Backend (`tax-rates.json`):** Added missing 'kind' property to component schema to fix 'reading kind' error on startup.
+89. **Backend (`product-template`):** Fixed controller, route, and service files to reference correct API identifier 'api::product-template.product-template'.
+90. **Documentation (`steps and reports.md`):** Updated Navigation Bar Content and Next Step sections to reflect the new Advanced Products Module links and permissions.
+91. **Frontend (`ProductTemplatesPage.vue`):** Fixed vue-tsc errors related to id type mismatch and duplicate id property, added missing void operator for promise in onMounted.
+92. **Frontend (`ProductVariantsPage.vue`):** Fixed vue-tsc errors related to duplicate id property, added missing void operators for promises in onMounted.
+93. **Frontend (`StockLocationsPage.vue`):** Fixed vue-tsc errors related to duplicate id property, added missing void operator for promise in onMounted.
+94. **Frontend (`StockMovesPage.vue`):** Fixed vue-tsc errors related to duplicate id property, added missing void operators for promises in onMounted.
+95. **Frontend (`ProductTemplatesPage.vue`):** Fixed no-unused-vars errors by removing unused error parameter in catch blocks.
+96. **Frontend (`ProductVariantsPage.vue`):** Fixed no-unused-vars errors by removing unused error parameter in catch blocks.
+97. **Frontend (`StockLocationsPage.vue`):** Fixed no-unused-vars errors by removing unused error parameter in catch blocks.
+98. **Frontend (`StockMovesPage.vue`):** Fixed no-unused-vars errors by removing unused error parameter in catch blocks.
+
 
 ### Navigation Bar Content
 
@@ -88,10 +147,28 @@ const linksList: EssentialLinkProps[] = [
     link: '/',
   },
   {
-    title: 'Products Management',
-    caption: 'Manage your shop products',
-    icon: 'store',
-    link: '/products',
+    title: 'Product Templates',
+    caption: 'Manage product templates',
+    icon: 'inventory_2',
+    link: '/product-templates',
+  },
+  {
+    title: 'Product Variants',
+    caption: 'Manage product variants',
+    icon: 'badge',
+    link: '/product-variants',
+  },
+  {
+    title: 'Stock Locations',
+    caption: 'Manage stock locations',
+    icon: 'warehouse',
+    link: '/stock-locations',
+  },
+  {
+    title: 'Stock Moves',
+    caption: 'Manage stock movements',
+    icon: 'transfer_within_a_station',
+    link: '/stock-moves',
   },
   {
     title: 'Customer Management',
@@ -111,6 +188,12 @@ const linksList: EssentialLinkProps[] = [
     icon: 'build',
     link: '/maintenance',
   },
+  {
+    title: 'Settings',
+    caption: 'Configure shop settings',
+    icon: 'settings',
+    link: '/settings/general',
+  },
 ];
 ```
 
@@ -127,8 +210,10 @@ All features on the roadmap are now implemented and final bug fixes have been ap
 4.  **Strapi Permissions for Invoice Item Module:** Grant `find`, `findOne`, `create` permissions to the `Authenticated` role for the `Invoice Item` collection type.
 5.  **Strapi Permissions for Maintenance Module:** Grant full CRUD permissions to the `Authenticated` role for the `Maintenance` collection type.
 6.  **Strapi Permissions for Dashboard Stats:** Grant `getDashboardStats` permission to the `Authenticated` role for the `Invoice` collection type.
-7.  **Create Sample Customer Data (Optional but Recommended for Testing):** Add a sample customer via the Strapi Content Manager.
-8.  **Update Sample Product Data with Cost (Optional but Recommended for Dashboard Profit Calculation):** Add a `cost` value to your sample product via the Strapi Content Manager.
+7.  **Strapi Permissions for Settings (Singletons):** For `general-setting`, `financial-setting`, `inventory-setting`, and `email-setting`, grant `find` and `update` permissions to the `Authenticated` role.
+8.  **Strapi Permissions for Advanced Products Module:** Grant full CRUD permissions to the `Authenticated` role for `product-template`, `product-variant`, `stock-location`, and `stock-move` collection types.
+9.  **Create Sample Customer Data (Optional but Recommended for Testing):** Add a sample customer via the Strapi Content Manager.
+10. **Update Sample Product Data with Cost (Optional but Recommended for Dashboard Profit Calculation):** Add a `cost` value to your sample product via the Strapi Content Manager.
 
 **After completing the manual steps, restart your frontend development server.**
 
@@ -137,9 +222,12 @@ All features on the roadmap are now implemented and final bug fixes have been ap
 2.  **Frontend Application Access:** Verify redirection to login.
 3.  **User Authentication:** Test login and logout.
 4.  **Dashboard Module:** Verify dashboard statistics display.
-5.  **Products Management Module:** Test Add, Edit, Delete product functionality.
-6.  **Customer Module:** Test Add, Edit, Delete customer functionality.
-7.  **Point of Sale (POS) Module:** Test adding products to cart, selecting customer, processing sale, and verifying data in Strapi (Invoice, Invoice Item, updated Product stock).
-8.  **Maintenance Module:** Test Add, Edit, Delete maintenance tickets.
+5.  **Product Templates Module:** Test Add, Edit, Delete product template functionality.
+6.  **Product Variants Module:** Test Add, Edit, Delete product variant functionality.
+7.  **Stock Locations Module:** Test Add, Edit, Delete stock location functionality.
+8.  **Stock Moves Module:** Test Create stock move functionality.
+9.  **Customer Module:** Test Add, Edit, Delete customer functionality.
+10. **Point of Sale (POS) Module:** Test adding products to cart, selecting customer, processing sale, and verifying data in Strapi (Invoice, Invoice Item, updated Product stock).
+11. **Maintenance Module:** Test Add, Edit, Delete maintenance tickets.
 
 **Finally, review the provided Final Deployment Plan for deploying the application to the Windows 11 Production Server.**

@@ -1,0 +1,28 @@
+{
+  "kind": "singleton",
+  "collectionName": "business_settings",
+  "info": {
+    "singularName": "business-setting",
+    "pluralName": "business-settings",
+    "displayName": "Business Settings",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "shopName": {
+      "type": "string"
+    },
+    "address": {
+      "type": "string"
+    },
+    "phone": {
+      "type": "string"
+    },
+    "taxRate": {
+      "type": "decimal"
+    }
+  }
+}

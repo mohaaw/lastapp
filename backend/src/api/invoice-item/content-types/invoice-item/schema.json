@@ -37,10 +37,10 @@
       "target": "api::invoice.invoice",
       "inversedBy": "invoice_items"
     },
-    "product": {
+    "product_variant": {
       "type": "relation",
-      "relation": "oneToOne",
-      "target": "api::product.product"
+      "relation": "manyToOne",
+      "target": "api::product-variant.product-variant"
     }
   }
 }

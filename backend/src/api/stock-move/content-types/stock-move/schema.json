@@ -1,0 +1,34 @@
+{
+  "kind": "collectionType",
+  "collectionName": "stock_moves",
+  "info": {
+    "singularName": "stock-move",
+    "pluralName": "stock-moves",
+    "displayName": "Stock Move"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "quantity": {
+      "type": "integer",
+      "required": true
+    },
+    "product_variant": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::product-variant.product-variant"
+    },
+    "from_location": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::stock-location.stock-location"
+    },
+    "to_location": {
+      "type": "relation",
+      "relation": "oneToOne",
+      "target": "api::stock-location.stock-location"
+    }
+  }
+}

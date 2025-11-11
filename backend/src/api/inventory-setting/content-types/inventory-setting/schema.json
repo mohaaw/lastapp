@@ -1,0 +1,22 @@
+{
+  "kind": "singleton",
+  "collectionName": "inventory_settings",
+  "info": {
+    "singularName": "inventory-setting",
+    "pluralName": "inventory-settings",
+    "displayName": "Inventory Settings",
+    "description": "Inventory settings for the shop"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "defaultWarehouse": {
+      "type": "string"
+    },
+    "warrantyPolicy": {
+      "type": "text"
+    }
+  }
+}

@@ -1,10 +1,10 @@
 {
   "kind": "collectionType",
-  "collectionName": "products",
+  "collectionName": "product_templates",
   "info": {
-    "singularName": "product",
-    "pluralName": "products",
-    "displayName": "Product"
+    "singularName": "product-template",
+    "pluralName": "product-templates",
+    "displayName": "Product Template"
   },
   "options": {
     "draftAndPublish": true
@@ -36,8 +36,16 @@
     "cost": {
       "type": "decimal"
     },
-    "cost": {
-      "type": "decimal"
+    "hasVariants": {
+      "type": "boolean",
+      "default": false,
+      "required": true
+    },
+    "product_variants": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::product-variant.product-variant",
+      "mappedBy": "product_template"
     }
   }
 }

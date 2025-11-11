@@ -430,6 +430,39 @@ export interface AdminUser extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiBusinessSettingBusinessSetting
+  extends Struct.SingletonSchema {
+  collectionName: 'business_settings';
+  info: {
+    description: '';
+    displayName: 'Business Settings';
+    pluralName: 'business-settings';
+    singularName: 'business-setting';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    address: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::business-setting.business-setting'
+    > &
+      Schema.Attribute.Private;
+    phone: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    shopName: Schema.Attribute.String;
+    taxRate: Schema.Attribute.Decimal;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiCustomerCustomer extends Struct.CollectionTypeSchema {
   collectionName: 'customers';
   info: {
@@ -459,6 +492,138 @@ export interface ApiCustomerCustomer extends Struct.CollectionTypeSchema {
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
+  };
+}
+
+export interface ApiEmailSettingEmailSetting extends Struct.SingletonSchema {
+  collectionName: 'email_settings';
+  info: {
+    description: 'Email settings for the shop';
+    displayName: 'Email Settings';
+    pluralName: 'email-settings';
+    singularName: 'email-setting';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::email-setting.email-setting'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    smtpHost: Schema.Attribute.String;
+    smtpPass: Schema.Attribute.Password;
+    smtpPort: Schema.Attribute.Integer;
+    smtpUser: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiFinancialSettingFinancialSetting
+  extends Struct.SingletonSchema {
+  collectionName: 'financial_settings';
+  info: {
+    description: 'Financial settings for the shop';
+    displayName: 'Financial Settings';
+    pluralName: 'financial-settings';
+    singularName: 'financial-setting';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    defaultCurrency: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<'EGP'>;
+    fiscalYearStart: Schema.Attribute.Date;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::financial-setting.financial-setting'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    taxRates: Schema.Attribute.Component<'settings.tax-rates', true>;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiGeneralSettingGeneralSetting
+  extends Struct.SingletonSchema {
+  collectionName: 'general_settings';
+  info: {
+    description: 'General shop settings';
+    displayName: 'General Settings';
+    pluralName: 'general-settings';
+    singularName: 'general-setting';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    address: Schema.Attribute.String;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::general-setting.general-setting'
+    > &
+      Schema.Attribute.Private;
+    phone: Schema.Attribute.String;
+    publishedAt: Schema.Attribute.DateTime;
+    shopLogo: Schema.Attribute.Media<'images'>;
+    shopName: Schema.Attribute.String;
+    taxID: Schema.Attribute.String;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiInventorySettingInventorySetting
+  extends Struct.SingletonSchema {
+  collectionName: 'inventory_settings';
+  info: {
+    description: 'Inventory settings for the shop';
+    displayName: 'Inventory Settings';
+    pluralName: 'inventory-settings';
+    singularName: 'inventory-setting';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    defaultWarehouse: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::inventory-setting.inventory-setting'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    warrantyPolicy: Schema.Attribute.Text;
   };
 }
 
@@ -492,8 +657,11 @@ export interface ApiInvoiceItemInvoiceItem extends Struct.CollectionTypeSchema {
         },
         number
       >;
-    product: Schema.Attribute.Relation<'oneToOne', 'api::product.product'>;
     product_name: Schema.Attribute.String & Schema.Attribute.Required;
+    product_variant: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::product-variant.product-variant'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     quantity: Schema.Attribute.Integer &
       Schema.Attribute.Required &
@@ -599,12 +767,13 @@ export interface ApiMaintenanceMaintenance extends Struct.CollectionTypeSchema {
   };
 }
 
-export interface ApiProductProduct extends Struct.CollectionTypeSchema {
-  collectionName: 'products';
+export interface ApiProductTemplateProductTemplate
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'product_templates';
   info: {
-    displayName: 'Product';
-    pluralName: 'products';
-    singularName: 'product';
+    displayName: 'Product Template';
+    pluralName: 'product-templates';
+    singularName: 'product-template';
   };
   options: {
     draftAndPublish: true;
@@ -617,17 +786,133 @@ export interface ApiProductProduct extends Struct.CollectionTypeSchema {
     createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
     description: Schema.Attribute.String;
+    hasVariants: Schema.Attribute.Boolean &
+      Schema.Attribute.Required &
+      Schema.Attribute.DefaultTo<false>;
     locale: Schema.Attribute.String & Schema.Attribute.Private;
     localizations: Schema.Attribute.Relation<
       'oneToMany',
-      'api::product.product'
+      'api::product-template.product-template'
     > &
       Schema.Attribute.Private;
     name: Schema.Attribute.String;
     price: Schema.Attribute.Decimal;
+    product_variants: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::product-variant.product-variant'
+    >;
     publishedAt: Schema.Attribute.DateTime;
     sku: Schema.Attribute.String & Schema.Attribute.Unique;
     stock: Schema.Attribute.Integer;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiProductVariantProductVariant
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'product_variants';
+  info: {
+    displayName: 'Product Variant';
+    pluralName: 'product-variants';
+    singularName: 'product-variant';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    costPrice: Schema.Attribute.Decimal;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::product-variant.product-variant'
+    > &
+      Schema.Attribute.Private;
+    product_template: Schema.Attribute.Relation<
+      'manyToOne',
+      'api::product-template.product-template'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    salePrice: Schema.Attribute.Decimal & Schema.Attribute.Required;
+    serialNumber: Schema.Attribute.String & Schema.Attribute.Unique;
+    sku: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiStockLocationStockLocation
+  extends Struct.CollectionTypeSchema {
+  collectionName: 'stock_locations';
+  info: {
+    displayName: 'Stock Location';
+    pluralName: 'stock-locations';
+    singularName: 'stock-location';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::stock-location.stock-location'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.Unique;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiStockMoveStockMove extends Struct.CollectionTypeSchema {
+  collectionName: 'stock_moves';
+  info: {
+    displayName: 'Stock Move';
+    pluralName: 'stock-moves';
+    singularName: 'stock-move';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    from_location: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::stock-location.stock-location'
+    >;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::stock-move.stock-move'
+    > &
+      Schema.Attribute.Private;
+    product_variant: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::product-variant.product-variant'
+    >;
+    publishedAt: Schema.Attribute.DateTime;
+    quantity: Schema.Attribute.Integer & Schema.Attribute.Required;
+    to_location: Schema.Attribute.Relation<
+      'oneToOne',
+      'api::stock-location.stock-location'
+    >;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1144,11 +1429,19 @@ declare module '@strapi/strapi' {
       'admin::transfer-token': AdminTransferToken;
       'admin::transfer-token-permission': AdminTransferTokenPermission;
       'admin::user': AdminUser;
+      'api::business-setting.business-setting': ApiBusinessSettingBusinessSetting;
       'api::customer.customer': ApiCustomerCustomer;
+      'api::email-setting.email-setting': ApiEmailSettingEmailSetting;
+      'api::financial-setting.financial-setting': ApiFinancialSettingFinancialSetting;
+      'api::general-setting.general-setting': ApiGeneralSettingGeneralSetting;
+      'api::inventory-setting.inventory-setting': ApiInventorySettingInventorySetting;
       'api::invoice-item.invoice-item': ApiInvoiceItemInvoiceItem;
       'api::invoice.invoice': ApiInvoiceInvoice;
       'api::maintenance.maintenance': ApiMaintenanceMaintenance;
-      'api::product.product': ApiProductProduct;
+      'api::product-template.product-template': ApiProductTemplateProductTemplate;
+      'api::product-variant.product-variant': ApiProductVariantProductVariant;
+      'api::stock-location.stock-location': ApiStockLocationStockLocation;
+      'api::stock-move.stock-move': ApiStockMoveStockMove;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

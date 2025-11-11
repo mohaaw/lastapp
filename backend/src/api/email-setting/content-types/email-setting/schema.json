@@ -1,0 +1,28 @@
+{
+  "kind": "singleton",
+  "collectionName": "email_settings",
+  "info": {
+    "singularName": "email-setting",
+    "pluralName": "email-settings",
+    "displayName": "Email Settings",
+    "description": "Email settings for the shop"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "smtpHost": {
+      "type": "string"
+    },
+    "smtpPort": {
+      "type": "integer"
+    },
+    "smtpUser": {
+      "type": "string"
+    },
+    "smtpPass": {
+      "type": "password"
+    }
+  }
+}

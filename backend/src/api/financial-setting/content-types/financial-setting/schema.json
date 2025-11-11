@@ -1,0 +1,29 @@
+{
+  "kind": "singleton",
+  "collectionName": "financial_settings",
+  "info": {
+    "singularName": "financial-setting",
+    "pluralName": "financial-settings",
+    "displayName": "Financial Settings",
+    "description": "Financial settings for the shop"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "defaultCurrency": {
+      "type": "string",
+      "default": "EGP",
+      "required": true
+    },
+    "fiscalYearStart": {
+      "type": "date"
+    },
+    "taxRates": {
+      "type": "component",
+      "repeatable": true,
+      "component": "settings.tax-rates"
+    }
+  }
+}

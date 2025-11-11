@@ -1,0 +1,19 @@
+{
+  "kind": "component",
+  "collectionName": "components_settings_tax_rates",
+  "info": {
+    "displayName": "Tax Rate",
+    "icon": "percent"
+  },
+  "options": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true
+    },
+    "rate": {
+      "type": "decimal",
+      "required": true
+    }
+  }
+}
