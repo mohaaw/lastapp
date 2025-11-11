@@ -1,0 +1,24 @@
+{
+  "kind": "singleton",
+  "collectionName": "integration_settings",
+  "info": {
+    "singularName": "integration-setting",
+    "pluralName": "integration-settings",
+    "displayName": "Integration Settings",
+    "description": "Configure third-party integrations like Google Maps and WhatsApp"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "googleMapsApiKey": {
+      "type": "string",
+      "required": false
+    },
+    "whatsappApiToken": {
+      "type": "string",
+      "required": false
+    }
+  }
+}

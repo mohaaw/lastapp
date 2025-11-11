@@ -2,20 +2,20 @@
   <q-page padding>
     <q-card>
       <q-card-section>
-        <div class="text-h6">General Settings</div>
-        <div class="text-subtitle2">Configure general shop details.</div>
+        <div class="text-h6">{{ $t('generalSettings.generalSettings') }}</div>
+        <div class="text-subtitle2">{{ $t('generalSettings.configureGeneralShopDetails') }}</div>
       </q-card-section>
       <q-separator />
       <q-card-section>
         <q-form @submit.prevent="saveSettings" class="q-gutter-md">
-          <q-input v-model="form.shopName" label="Shop Name" filled />
-          <q-input v-model="form.address" label="Address" filled />
-          <q-input v-model="form.phone" label="Phone" filled />
-          <q-input v-model="form.email" label="Email" type="email" filled />
-          <q-input v-model="form.taxID" label="Tax ID" filled />
+          <q-input v-model="form.shopName" :label="$t('generalSettings.shopName')" filled />
+          <q-input v-model="form.address" :label="$t('generalSettings.address')" filled />
+          <q-input v-model="form.phone" :label="$t('generalSettings.phone')" filled />
+          <q-input v-model="form.email" :label="$t('generalSettings.email')" type="email" filled />
+          <q-input v-model="form.taxID" :label="$t('generalSettings.taxID')" filled />
           <!-- TODO: Add q-file for shopLogo -->
           <div class="q-pt-md">
-            <q-btn label="Save" type="submit" color="primary" />
+            <q-btn :label="$t('common.save')" type="submit" color="primary" />
           </div>
         </q-form>
       </q-card-section>

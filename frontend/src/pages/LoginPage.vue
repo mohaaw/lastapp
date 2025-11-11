@@ -2,7 +2,7 @@
   <q-page class="flex flex-center">
     <q-card style="width: 400px">
       <q-card-section class="text-center">
-        <div class="text-h6">Login to Your Shop ERP</div>
+        <div class="text-h6">{{ $t('auth.loginTitle') }}</div>
       </q-card-section>
 
       <q-card-section>
@@ -10,18 +10,18 @@
           <q-input
             filled
             v-model="identifier"
-            label="Email or Username"
+            :label="$t('auth.emailOrUsername')"
             lazy-rules
-            :rules="[(val) => (val && val.length > 0) || 'Please type something']"
+            :rules="[(val) => (val && val.length > 0) || $t('auth.pleaseTypeEmail')]"
           />
 
           <q-input
             filled
             type="password"
             v-model="password"
-            label="Password"
+            :label="$t('auth.password')"
             lazy-rules
-            :rules="[(val) => (val && val.length > 0) || 'Please type your password']"
+            :rules="[(val) => (val && val.length > 0) || $t('auth.pleaseTypePassword')]"
           />
 
           <div v-if="loginError" class="text-negative text-center">
@@ -29,7 +29,7 @@
           </div>
 
           <div>
-            <q-btn label="Login" type="submit" color="primary" :loading="loading" class="full-width" />
+            <q-btn :label="$t('auth.loginButton')" type="submit" color="primary" :loading="loading" class="full-width" />
           </div>
         </q-form>
       </q-card-section>

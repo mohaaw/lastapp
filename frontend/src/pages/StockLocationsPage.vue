@@ -2,7 +2,7 @@
   <q-page padding>
     <div class="q-pa-md">
       <q-table
-        title="Stock Locations"
+        :title="$t('inventory.stockLocations')"
         :rows="rows"
         :columns="columns"
         row-key="id"
@@ -12,7 +12,7 @@
         binary-state-sort
       >
         <template v-slot:top-right>
-          <q-btn color="primary" icon="add" label="Add Location" @click="openFormDialog()" />
+          <q-btn color="primary" icon="add" :label="$t('inventory.addLocation')" @click="openFormDialog()" />
         </template>
         <template v-slot:body-cell-actions="props">
           <q-td :props="props">
@@ -26,18 +26,18 @@
     <q-dialog v-model="formDialog" persistent>
       <q-card style="width: 500px; max-width: 80vw;">
         <q-card-section>
-          <div class="text-h6">{{ form.id ? 'Edit' : 'Add' }} Location</div>
+          <div class="text-h6">{{ form.id ? $t('inventory.editLocation') : $t('inventory.addLocation') }}</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
           <q-form @submit.prevent="save" class="q-gutter-md">
-            <q-input filled v-model="form.name" label="Location Name" autofocus />
+            <q-input filled v-model="form.name" :label="$t('inventory.locationName')" autofocus />
           </q-form>
         </q-card-section>
 
         <q-card-actions align="right">
-          <q-btn flat label="Cancel" v-close-popup />
-          <q-btn flat label="Save" @click="save" color="primary" />
+          <q-btn flat :label="$t('common.cancel')" v-close-popup />
+          <q-btn flat :label="$t('common.save')" @click="save" color="primary" />
         </q-card-actions>
       </q-card>
     </q-dialog>

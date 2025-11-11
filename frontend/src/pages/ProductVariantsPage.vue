@@ -2,7 +2,7 @@
   <q-page padding>
     <div class="q-pa-md">
       <q-table
-        title="Product Variants"
+        :title="$t('products.productVariants')"
         :rows="rows"
         :columns="columns"
         row-key="id"
@@ -12,7 +12,7 @@
         binary-state-sort
       >
         <template v-slot:top-right>
-          <q-btn color="primary" icon="add" label="Add Variant" @click="openFormDialog()" />
+          <q-btn color="primary" icon="add" :label="$t('products.addVariant')" @click="openFormDialog()" />
         </template>
         <template v-slot:body-cell-actions="props">
           <q-td :props="props">
@@ -26,7 +26,7 @@
     <q-dialog v-model="formDialog" persistent>
       <q-card style="width: 700px; max-width: 80vw;">
         <q-card-section>
-          <div class="text-h6">{{ form.id ? 'Edit' : 'Add' }} Product Variant</div>
+          <div class="text-h6">{{ form.id ? $t('common.edit') : $t('common.add') }} {{ $t('products.productVariants') }}</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
@@ -35,22 +35,22 @@
               filled
               v-model="form.product_template"
               :options="templateOptions"
-              label="Product Template"
+              :label="$t('products.productTemplate')"
               option-value="id"
               option-label="name"
               emit-value
               map-options
             />
-            <q-input filled v-model="form.sku" label="SKU" />
-            <q-input filled v-model="form.serialNumber" label="Serial Number" />
-            <q-input filled v-model.number="form.costPrice" label="Cost Price" type="number" step="0.01" />
-            <q-input filled v-model.number="form.salePrice" label="Sale Price" type="number" step="0.01" />
+            <q-input filled v-model="form.sku" :label="$t('products.sku')" />
+            <q-input filled v-model="form.serialNumber" :label="$t('products.serialNumber')" />
+            <q-input filled v-model.number="form.costPrice" :label="$t('products.costPrice')" type="number" step="0.01" />
+            <q-input filled v-model.number="form.salePrice" :label="$t('products.salePrice')" type="number" step="0.01" />
           </q-form>
         </q-card-section>
 
         <q-card-actions align="right">
-          <q-btn flat label="Cancel" v-close-popup />
-          <q-btn flat label="Save" @click="save" color="primary" />
+          <q-btn flat :label="$t('common.cancel')" v-close-popup />
+          <q-btn flat :label="$t('common.save')" @click="save" color="primary" />
         </q-card-actions>
       </q-card>
     </q-dialog>

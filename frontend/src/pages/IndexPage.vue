@@ -2,26 +2,26 @@
   <q-page class="q-pa-md">
     <div v-if="loading" class="text-center">
       <q-spinner-dots color="primary" size="40px" />
-      <p>Loading products...</p>
+      <p>{{ $t('common.loading') }}...</p>
     </div>
     <div v-else-if="error" class="text-center text-negative">
-      <p>An error occurred:</p>
+      <p>{{ $t('errors.unexpectedError') }}</p>
       <pre>{{ error.message }}</pre>
     </div>
     <div v-else-if="products.length > 0">
-      <h5 class="q-my-md">Products</h5>
+      <h5 class="q-my-md">{{ $t('products.productTemplates') }}</h5>
       <q-list bordered separator>
         <q-item v-for="product in products" :key="product.id">
           <q-item-section>
             <q-item-label>{{ product.name }}</q-item-label>
-            <q-item-label caption>SKU: {{ product.sku }} | Category: {{ product.category }} | Brand: {{ product.brand }}</q-item-label>
-            <q-item-label caption>Price: ${{ product.price }} | Stock: {{ product.stock }}</q-item-label>
+            <q-item-label caption>{{ $t('products.sku') }}: {{ product.sku }} | {{ $t('products.category') }}: {{ product.category }} | {{ $t('products.brand') }}: {{ product.brand }}</q-item-label>
+            <q-item-label caption>{{ $t('products.price') }}: ${{ product.price }} | {{ $t('common.stock') }}: {{ product.stock }}</q-item-label>
           </q-item-section>
         </q-item>
       </q-list>
     </div>
     <div v-else class="text-center text-grey">
-      <p>No products found. Have you created and published a product in the Strapi admin panel?</p>
+      <p>{{ $t('products.noProductsFound') }}</p>
     </div>
   </q-page>
 </template>

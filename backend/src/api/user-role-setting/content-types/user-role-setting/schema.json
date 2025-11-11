@@ -1,0 +1,15 @@
+{
+  "kind": "singleton",
+  "collectionName": "user_role_settings",
+  "info": {
+    "singularName": "user-role-setting",
+    "pluralName": "user-role-settings",
+    "displayName": "User Role Settings",
+    "description": "Placeholder for user role and permission configurations"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {}
+}

@@ -2,25 +2,25 @@
   <q-page padding>
     <q-card>
       <q-card-section>
-        <div class="text-h6">Financial Settings</div>
-        <div class="text-subtitle2">Configure currency, fiscal year, and tax rates.</div>
+        <div class="text-h6">{{ $t('financialSettings.financialSettings') }}</div>
+        <div class="text-subtitle2">{{ $t('financialSettings.configureCurrencyFiscalYearTaxRates') }}</div>
       </q-card-section>
       <q-separator />
       <q-card-section>
         <q-form @submit.prevent="saveSettings" class="q-gutter-md">
-          <q-input v-model="form.defaultCurrency" label="Default Currency" filled />
-          <q-input v-model="form.fiscalYearStart" label="Fiscal Year Start" filled type="date" stack-label />
+          <q-input v-model="form.defaultCurrency" :label="$t('financialSettings.defaultCurrency')" filled />
+          <q-input v-model="form.fiscalYearStart" :label="$t('financialSettings.fiscalYearStart')" filled type="date" stack-label />
 
-          <div class="q-pt-md text-h6">Tax Rates</div>
+          <div class="q-pt-md text-h6">{{ $t('financialSettings.taxRates') }}</div>
           <div v-for="(taxRate, index) in form.taxRates" :key="index" class="row items-center q-gutter-sm q-mb-sm">
-            <q-input v-model="taxRate.name" label="Tax Name" filled class="col" />
-            <q-input v-model.number="taxRate.rate" label="Rate (%)" type="number" step="0.01" filled class="col" />
+            <q-input v-model="taxRate.name" :label="$t('financialSettings.taxName')" filled class="col" />
+            <q-input v-model.number="taxRate.rate" :label="$t('financialSettings.rate')" type="number" step="0.01" filled class="col" />
             <q-btn icon="delete" flat round dense @click="removeTaxRate(index)" />
           </div>
-          <q-btn label="Add Tax Rate" color="primary" outline @click="addTaxRate" />
+          <q-btn :label="$t('financialSettings.addTaxRate')" color="primary" outline @click="addTaxRate" />
 
           <div class="q-pt-xl">
-            <q-btn label="Save" type="submit" color="primary" />
+            <q-btn :label="$t('common.save')" type="submit" color="primary" />
           </div>
         </q-form>
       </q-card-section>

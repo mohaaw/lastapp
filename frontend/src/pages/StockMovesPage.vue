@@ -2,7 +2,7 @@
   <q-page padding>
     <div class="q-pa-md">
       <q-table
-        title="Stock Moves"
+        :title="$t('inventory.stockMoves')"
         :rows="rows"
         :columns="columns"
         row-key="id"
@@ -12,7 +12,7 @@
         binary-state-sort
       >
         <template v-slot:top-right>
-          <q-btn color="primary" icon="add" label="Create Move" @click="openFormDialog()" />
+          <q-btn color="primary" icon="add" :label="$t('inventory.createMove')" @click="openFormDialog()" />
         </template>
       </q-table>
     </div>
@@ -20,7 +20,7 @@
     <q-dialog v-model="formDialog" persistent>
       <q-card style="width: 700px; max-width: 80vw;">
         <q-card-section>
-          <div class="text-h6">Create Stock Move</div>
+          <div class="text-h6">{{ $t('inventory.createMove') }}</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
@@ -29,7 +29,7 @@
               filled
               v-model="form.product_variant"
               :options="variantOptions"
-              label="Product Variant"
+              :label="$t('products.productVariants')"
               option-value="id"
               :option-label="(opt) => `${opt.sku} (${opt.serialNumber || 'no serial'})`"
               emit-value
@@ -39,7 +39,7 @@
               filled
               v-model="form.from_location"
               :options="locationOptions"
-              label="From Location"
+              :label="$t('inventory.fromLocation')"
               option-value="id"
               option-label="name"
               emit-value
@@ -49,19 +49,19 @@
               filled
               v-model="form.to_location"
               :options="locationOptions"
-              label="To Location"
+              :label="$t('inventory.toLocation')"
               option-value="id"
               option-label="name"
               emit-value
               map-options
             />
-            <q-input filled v-model.number="form.quantity" label="Quantity" type="number" />
+            <q-input filled v-model.number="form.quantity" :label="$t('inventory.quantity')" type="number" />
           </q-form>
         </q-card-section>
 
         <q-card-actions align="right">
-          <q-btn flat label="Cancel" v-close-popup />
-          <q-btn flat label="Save" @click="save" color="primary" />
+          <q-btn flat :label="$t('common.cancel')" v-close-popup />
+          <q-btn flat :label="$t('common.save')" @click="save" color="primary" />
         </q-card-actions>
       </q-card>
     </q-dialog>

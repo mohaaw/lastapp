@@ -1,9 +1,9 @@
 <template>
   <q-page class="q-pa-md">
     <div class="row items-center q-mb-md">
-      <div class="col text-h5">Maintenance Management</div>
+      <div class="col text-h5">{{ $t('maintenance.maintenanceManagement') }}</div>
       <div class="col-auto">
-        <q-btn color="primary" icon="add" label="Add Ticket" @click="openAddDialog" />
+        <q-btn color="primary" icon="add" :label="$t('maintenance.addTicket')" @click="openAddDialog" />
       </div>
     </div>
 
@@ -13,10 +13,10 @@
       row-key="id"
       :loading="loading"
       :filter="filter"
-      no-data-label="No maintenance tickets found"
+      :no-data-label="$t('maintenance.noMaintenanceTicketsFound')"
     >
       <template v-slot:top-right>
-        <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
+        <q-input borderless dense debounce="300" v-model="filter" :placeholder="$t('common.search')">
           <template v-slot:append>
             <q-icon name="search" />
           </template>
@@ -35,19 +35,19 @@
     <q-dialog v-model="showDialog" persistent>
       <q-card style="min-width: 350px">
         <q-card-section>
-          <div class="text-h6">{{ isEditing ? 'Edit Maintenance Ticket' : 'Add Maintenance Ticket' }}</div>
+          <div class="text-h6">{{ isEditing ? $t('maintenance.editMaintenanceTicket') : $t('maintenance.addMaintenanceTicket') }}</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
           <q-form @submit="saveMaintenanceTicket" class="q-gutter-md">
-            <q-input filled v-model="editedTicket.customer_name" label="Customer Name" lazy-rules :rules="[val => !!val || 'Customer Name is required']" />
-            <q-input filled v-model="editedTicket.device" label="Device" lazy-rules :rules="[val => !!val || 'Device is required']" />
-            <q-input filled v-model="editedTicket.problem_description" label="Problem Description" type="textarea" lazy-rules :rules="[val => !!val || 'Problem Description is required']" />
+            <q-input filled v-model="editedTicket.customer_name" :label="$t('maintenance.customerName')" lazy-rules :rules="[val => !!val || $t('maintenance.customerName') + ' is required']" />
+            <q-input filled v-model="editedTicket.device" :label="$t('maintenance.device')" lazy-rules :rules="[val => !!val || $t('maintenance.device') + ' is required']" />
+            <q-input filled v-model="editedTicket.problem_description" :label="$t('maintenance.problemDescription')" type="textarea" lazy-rules :rules="[val => !!val || $t('maintenance.problemDescription') + ' is required']" />
             <q-select
               filled
               v-model="editedTicket.status"
               :options="['pending', 'in_progress', 'completed', 'cancelled']"
-              label="Status"
+              :label="$t('maintenance.status')"
               lazy-rules
               :rules="[val => !!val || 'Status is required']"
             />
@@ -55,20 +55,20 @@
               filled
               v-model="editedTicket.customer"
               :options="customerOptions"
-              label="Link Customer (Optional)"
+              :label="$t('maintenance.linkCustomer')"
               emit-value
               map-options
               clearable
             />
-            <q-input filled v-model="editedTicket.assigned_to" label="Assigned To" />
-            <q-input filled v-model="editedTicket.start_date" label="Start Date" type="datetime-local" />
-            <q-input filled v-model="editedTicket.end_date" label="End Date" type="datetime-local" />
+            <q-input filled v-model="editedTicket.assigned_to" :label="$t('maintenance.assignedTo')" />
+            <q-input filled v-model="editedTicket.start_date" :label="$t('maintenance.startDate')" type="datetime-local" />
+            <q-input filled v-model="editedTicket.end_date" :label="$t('maintenance.endDate')" type="datetime-local" />
           </q-form>
         </q-card-section>
 
         <q-card-actions align="right" class="text-primary">
-          <q-btn flat label="Cancel" @click="closeDialog" />
-          <q-btn flat label="Save" type="submit" :loading="saving" />
+          <q-btn flat :label="$t('common.cancel')" @click="closeDialog" />
+          <q-btn flat :label="$t('common.save')" type="submit" :loading="saving" />
         </q-card-actions>
       </q-card>
     </q-dialog>
@@ -79,11 +79,13 @@
 import { ref, onMounted } from 'vue';
 import { api } from 'boot/axios';
 import { type QTableColumn, useQuasar } from 'quasar';
+import { useI18n } from 'vue-i18n';
 import { useAuthStore } from 'stores/auth';
 import axios from 'axios';
 
 const $q = useQuasar();
 const authStore = useAuthStore();
+const { t: $t } = useI18n();
 
 interface Customer {
   id: number;
@@ -140,14 +142,14 @@ const editedTicket = ref<MaintenanceTicketForm>({
 const customerOptions = ref<{ label: string; value: number }[]>([]);
 
 const columns: QTableColumn<MaintenanceTicket>[] = [
-  { name: 'customer_name', required: true, label: 'Customer Name', align: 'left', field: 'customer_name', sortable: true },
-  { name: 'device', label: 'Device', align: 'left', field: 'device', sortable: true },
-  { name: 'problem_description', label: 'Problem', align: 'left', field: 'problem_description', sortable: true },
-  { name: 'status', label: 'Status', align: 'left', field: 'status', sortable: true },
-  { name: 'assigned_to', label: 'Assigned To', align: 'left', field: 'assigned_to', sortable: true },
-  { name: 'start_date', label: 'Start Date', align: 'left', field: 'start_date', sortable: true, format: (val: string) => val ? new Date(val).toLocaleString() : '' },
-  { name: 'end_date', label: 'End Date', align: 'left', field: 'end_date', sortable: true, format: (val: string) => val ? new Date(val).toLocaleString() : '' },
-  { name: 'actions', label: 'Actions', align: 'right', field: (row) => row.id },
+  { name: 'customer_name', required: true, label: $t('maintenance.customerName'), align: 'left', field: 'customer_name', sortable: true },
+  { name: 'device', label: $t('maintenance.device'), align: 'left', field: 'device', sortable: true },
+  { name: 'problem_description', label: $t('maintenance.problemDescription'), align: 'left', field: 'problem_description', sortable: true },
+  { name: 'status', label: $t('common.status'), align: 'left', field: 'status', sortable: true },
+  { name: 'assigned_to', label: $t('maintenance.assignedTo'), align: 'left', field: 'assigned_to', sortable: true },
+  { name: 'start_date', label: $t('maintenance.startDate'), align: 'left', field: 'start_date', sortable: true, format: (val: string) => val ? new Date(val).toLocaleString() : '' },
+  { name: 'end_date', label: $t('maintenance.endDate'), align: 'left', field: 'end_date', sortable: true, format: (val: string) => val ? new Date(val).toLocaleString() : '' },
+  { name: 'actions', label: $t('common.actions'), align: 'right', field: (row) => row.id },
 ];
 
 const fetchMaintenanceTickets = async () => {
@@ -160,7 +162,7 @@ const fetchMaintenanceTickets = async () => {
     });
     maintenanceTickets.value = response.data.data;
   } catch (error: unknown) {
-    let errorMessage = 'Failed to fetch maintenance tickets.';
+    let errorMessage = $t('maintenance.failedToFetchTickets');
     if (axios.isAxiosError(error) && error.response?.data?.error?.message) {
       errorMessage = error.response.data.error.message;
     } else if (error instanceof Error) {
@@ -182,7 +184,7 @@ const fetchCustomers = async () => {
     customers.value = response.data.data;
     customerOptions.value = customers.value.map(c => ({ label: `${c.name} (${c.email})`, value: c.id }));
   } catch (error: unknown) {
-    let errorMessage = 'Failed to fetch customers for selection.';
+    let errorMessage = $t('maintenance.failedToFetchCustomers');
     if (axios.isAxiosError(error) && error.response?.data?.error?.message) {
       errorMessage = error.response.data.error.message;
     } else if (error instanceof Error) {
@@ -252,19 +254,19 @@ const saveMaintenanceTicket = async () => {
           Authorization: `Bearer ${authStore.token}`,
         },
       });
-      $q.notify({ type: 'positive', message: 'Maintenance ticket updated successfully!' });
+      $q.notify({ type: 'positive', message: $t('maintenance.ticketUpdatedSuccessfully') });
     } else {
       await api.post('/maintenances', ticketData, {
         headers: {
           Authorization: `Bearer ${authStore.token}`,
         },
       });
-      $q.notify({ type: 'positive', message: 'Maintenance ticket added successfully!' });
+      $q.notify({ type: 'positive', message: $t('maintenance.ticketAddedSuccessfully') });
     }
     await fetchMaintenanceTickets();
     closeDialog();
   } catch (error: unknown) {
-    let errorMessage = 'Failed to save maintenance ticket.';
+    let errorMessage = $t('maintenance.failedToSaveTicket');
     if (axios.isAxiosError(error) && error.response?.data?.error?.message) {
       errorMessage = error.response.data.error.message;
     } else if (error instanceof Error) {
@@ -278,8 +280,8 @@ const saveMaintenanceTicket = async () => {
 
 const confirmDelete = (id: number) => {
   $q.dialog({
-    title: 'Confirm',
-    message: 'Are you sure you want to delete this maintenance ticket?',
+    title: $t('common.confirm'),
+    message: $t('maintenance.confirmDeleteTicket'),
     cancel: true,
     persistent: true,
   }).onOk(() => {
@@ -290,10 +292,10 @@ const confirmDelete = (id: number) => {
             Authorization: `Bearer ${authStore.token}`,
           },
         });
-        $q.notify({ type: 'positive', message: 'Maintenance ticket deleted successfully!' });
+        $q.notify({ type: 'positive', message: $t('maintenance.ticketDeletedSuccessfully') });
         await fetchMaintenanceTickets();
       } catch (error: unknown) {
-        let errorMessage = 'Failed to delete maintenance ticket.';
+        let errorMessage = $t('maintenance.failedToDeleteTicket');
         if (axios.isAxiosError(error) && error.response?.data?.error?.message) {
           errorMessage = error.response.data.error.message;
         } else if (error instanceof Error) {

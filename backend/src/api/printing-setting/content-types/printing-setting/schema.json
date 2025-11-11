@@ -1,0 +1,30 @@
+{
+  "kind": "singleton",
+  "collectionName": "printing_settings",
+  "info": {
+    "singularName": "printing-setting",
+    "pluralName": "printing-settings",
+    "displayName": "Printing Settings",
+    "description": "Configure invoice printing and formatting options"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "invoiceHeader": {
+      "type": "text",
+      "required": false
+    },
+    "invoiceFooter": {
+      "type": "text",
+      "required": false
+    },
+    "logoForPrint": {
+      "type": "media",
+      "multiple": false,
+      "required": false,
+      "allowedTypes": ["images"]
+    }
+  }
+}

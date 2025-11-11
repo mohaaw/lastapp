@@ -596,6 +596,37 @@ export interface ApiGeneralSettingGeneralSetting
   };
 }
 
+export interface ApiIntegrationSettingIntegrationSetting
+  extends Struct.SingletonSchema {
+  collectionName: 'integration_settings';
+  info: {
+    description: 'Configure third-party integrations like Google Maps and WhatsApp';
+    displayName: 'Integration Settings';
+    pluralName: 'integration-settings';
+    singularName: 'integration-setting';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    googleMapsApiKey: Schema.Attribute.String;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::integration-setting.integration-setting'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    whatsappApiToken: Schema.Attribute.String;
+  };
+}
+
 export interface ApiInventorySettingInventorySetting
   extends Struct.SingletonSchema {
   collectionName: 'inventory_settings';
@@ -767,6 +798,38 @@ export interface ApiMaintenanceMaintenance extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiPrintingSettingPrintingSetting
+  extends Struct.SingletonSchema {
+  collectionName: 'printing_settings';
+  info: {
+    description: 'Configure invoice printing and formatting options';
+    displayName: 'Printing Settings';
+    pluralName: 'printing-settings';
+    singularName: 'printing-setting';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    invoiceFooter: Schema.Attribute.Text;
+    invoiceHeader: Schema.Attribute.Text;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::printing-setting.printing-setting'
+    > &
+      Schema.Attribute.Private;
+    logoForPrint: Schema.Attribute.Media<'images'>;
+    publishedAt: Schema.Attribute.DateTime;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiProductTemplateProductTemplate
   extends Struct.CollectionTypeSchema {
   collectionName: 'product_templates';
@@ -913,6 +976,35 @@ export interface ApiStockMoveStockMove extends Struct.CollectionTypeSchema {
       'oneToOne',
       'api::stock-location.stock-location'
     >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
+export interface ApiUserRoleSettingUserRoleSetting
+  extends Struct.SingletonSchema {
+  collectionName: 'user_role_settings';
+  info: {
+    description: 'Placeholder for user role and permission configurations';
+    displayName: 'User Role Settings';
+    pluralName: 'user-role-settings';
+    singularName: 'user-role-setting';
+  };
+  options: {
+    draftAndPublish: false;
+  };
+  attributes: {
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::user-role-setting.user-role-setting'
+    > &
+      Schema.Attribute.Private;
+    publishedAt: Schema.Attribute.DateTime;
     updatedAt: Schema.Attribute.DateTime;
     updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
       Schema.Attribute.Private;
@@ -1434,14 +1526,17 @@ declare module '@strapi/strapi' {
       'api::email-setting.email-setting': ApiEmailSettingEmailSetting;
       'api::financial-setting.financial-setting': ApiFinancialSettingFinancialSetting;
       'api::general-setting.general-setting': ApiGeneralSettingGeneralSetting;
+      'api::integration-setting.integration-setting': ApiIntegrationSettingIntegrationSetting;
       'api::inventory-setting.inventory-setting': ApiInventorySettingInventorySetting;
       'api::invoice-item.invoice-item': ApiInvoiceItemInvoiceItem;
       'api::invoice.invoice': ApiInvoiceInvoice;
       'api::maintenance.maintenance': ApiMaintenanceMaintenance;
+      'api::printing-setting.printing-setting': ApiPrintingSettingPrintingSetting;
       'api::product-template.product-template': ApiProductTemplateProductTemplate;
       'api::product-variant.product-variant': ApiProductVariantProductVariant;
       'api::stock-location.stock-location': ApiStockLocationStockLocation;
       'api::stock-move.stock-move': ApiStockMoveStockMove;
+      'api::user-role-setting.user-role-setting': ApiUserRoleSettingUserRoleSetting;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;
       'plugin::i18n.locale': PluginI18NLocale;

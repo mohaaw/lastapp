@@ -1,9 +1,9 @@
 <template>
   <q-page class="q-pa-md">
     <div class="row items-center q-mb-md">
-      <div class="col text-h5">Customer Management</div>
+      <div class="col text-h5">{{ $t('customers.customerManagement') }}</div>
       <div class="col-auto">
-        <q-btn color="primary" icon="add" label="Add Customer" @click="openAddDialog" />
+        <q-btn color="primary" icon="add" :label="$t('customers.addCustomer')" @click="openAddDialog" />
       </div>
     </div>
 
@@ -13,10 +13,10 @@
       row-key="id"
       :loading="loading"
       :filter="filter"
-      no-data-label="No customers found"
+      :no-data-label="$t('customers.noCustomersFound')"
     >
       <template v-slot:top-right>
-        <q-input borderless dense debounce="300" v-model="filter" placeholder="Search">
+        <q-input borderless dense debounce="300" v-model="filter" :placeholder="$t('common.search')">
           <template v-slot:append>
             <q-icon name="search" />
           </template>
@@ -35,21 +35,21 @@
     <q-dialog v-model="showDialog" persistent>
       <q-card style="min-width: 350px">
         <q-card-section>
-          <div class="text-h6">{{ isEditing ? 'Edit Customer' : 'Add Customer' }}</div>
+          <div class="text-h6">{{ isEditing ? $t('customers.editCustomer') : $t('customers.addCustomer') }}</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
           <q-form @submit="saveCustomer" class="q-gutter-md">
-            <q-input filled v-model="editedCustomer.name" label="Customer Name" lazy-rules :rules="[val => !!val || 'Name is required']" />
-            <q-input filled v-model="editedCustomer.phone" label="Phone" />
-            <q-input filled v-model="editedCustomer.email" label="Email" type="email" lazy-rules :rules="[val => !!val || 'Email is required', val => /.+@.+\..+/.test(val) || 'Email must be valid']" />
-            <q-input filled v-model="editedCustomer.address" label="Address" type="textarea" />
+            <q-input filled v-model="editedCustomer.name" :label="$t('customers.customerName')" lazy-rules :rules="[val => !!val || $t('customers.customerName') + ' is required']" />
+            <q-input filled v-model="editedCustomer.phone" :label="$t('customers.phone')" />
+            <q-input filled v-model="editedCustomer.email" :label="$t('customers.email')" type="email" lazy-rules :rules="[val => !!val || $t('customers.email') + ' is required', val => /.+@.+\..+/.test(val) || $t('customers.email') + ' must be valid']" />
+            <q-input filled v-model="editedCustomer.address" :label="$t('customers.address')" type="textarea" />
           </q-form>
         </q-card-section>
 
         <q-card-actions align="right" class="text-primary">
-          <q-btn flat label="Cancel" @click="closeDialog" />
-          <q-btn flat label="Save" type="submit" :loading="saving" />
+          <q-btn flat :label="$t('common.cancel')" @click="closeDialog" />
+          <q-btn flat :label="$t('common.save')" type="submit" :loading="saving" />
         </q-card-actions>
       </q-card>
     </q-dialog>

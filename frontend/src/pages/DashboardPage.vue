@@ -1,17 +1,17 @@
 <template>
   <q-page class="q-pa-md">
-    <div class="text-h4 q-mb-md">Welcome to Your Shop ERP Dashboard!</div>
+    <div class="text-h4 q-mb-md">{{ $t('dashboard.welcome') }}</div>
 
     <q-card class="q-mb-md">
       <q-card-section>
-        <div class="text-h6">Quick Overview</div>
+        <div class="text-h6">{{ $t('dashboard.quickOverview') }}</div>
       </q-card-section>
       <q-card-section>
         <div class="row q-col-gutter-md">
           <div class="col-12 col-md-4">
             <q-card flat bordered class="bg-grey-2">
               <q-card-section>
-                <div class="text-h6">Total Sales</div>
+                <div class="text-h6">{{ $t('dashboard.totalSales') }}</div>
                 <div class="text-h4 text-primary">{{ loading ? '--' : `$${stats.totalSales}` }}</div>
               </q-card-section>
             </q-card>
@@ -19,7 +19,7 @@
           <div class="col-12 col-md-4">
             <q-card flat bordered class="bg-grey-2">
               <q-card-section>
-                <div class="text-h6">Total Profit</div>
+                <div class="text-h6">{{ $t('dashboard.totalProfit') }}</div>
                 <div class="text-h4 text-positive">{{ loading ? '--' : `$${stats.totalProfit}` }}</div>
               </q-card-section>
             </q-card>
@@ -27,7 +27,7 @@
           <div class="col-12 col-md-4">
             <q-card flat bordered class="bg-grey-2">
               <q-card-section>
-                <div class="text-h6">Total Inventory Value</div>
+                <div class="text-h6">{{ $t('dashboard.totalInventoryValue') }}</div>
                 <div class="text-h4 text-negative">{{ loading ? '--' : `$${stats.totalInventoryValue}` }}</div>
               </q-card-section>
             </q-card>
@@ -38,12 +38,12 @@
 
     <q-card>
       <q-card-section>
-        <div class="text-h6">Recent Activity</div>
+        <div class="text-h6">{{ $t('dashboard.recentActivity') }}</div>
       </q-card-section>
       <q-card-section>
         <q-list bordered separator>
           <q-item>
-            <q-item-section>No recent activity yet.</q-item-section>
+            <q-item-section>{{ $t('dashboard.noRecentActivity') }}</q-item-section>
           </q-item>
         </q-list>
       </q-card-section>

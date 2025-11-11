@@ -52,6 +52,21 @@ const menuItems = [
     link: '/settings/email',
   },
   {
+    title: 'Printing',
+    icon: 'print',
+    link: '/settings/printing',
+  },
+  {
+    title: 'User Roles',
+    icon: 'supervised_user_circle',
+    link: '/settings/user-roles',
+  },
+  {
+    title: 'Integrations',
+    icon: 'integration_instructions',
+    link: '/settings/integrations',
+  },
+  {
     title: 'Application',
     icon: 'settings_applications',
     link: '/settings/app',

@@ -1,13 +1,13 @@
 <template>
   <q-page class="q-pa-md">
-    <div class="text-h4 q-mb-md">Point of Sale</div>
+    <div class="text-h4 q-mb-md">{{ $t('pos.pointOfSale') }}</div>
 
     <div class="row q-col-gutter-md">
       <!-- Product List Section -->
       <div class="col-12 col-md-8">
         <q-card>
           <q-card-section>
-            <div class="text-h6">Available Products</div>
+            <div class="text-h6">{{ $t('pos.availableProducts') }}</div>
           </q-card-section>
           <q-card-section>
             <q-input
@@ -15,7 +15,7 @@
               dense
               debounce="300"
               v-model="productFilter"
-              placeholder="Search products..."
+              :placeholder="$t('pos.searchProducts')"
               class="q-mb-md"
             >
               <template v-slot:append>
@@ -28,7 +28,7 @@
                 <q-item-section>
                   <q-item-label>{{ product.name }} ({{ product.sku }})</q-item-label>
                   <q-item-label caption>
-                    {{ product.brand }} - {{ product.category }} | ${{ product.price.toFixed(2) }} | Stock: {{ product.stock }}
+                    {{ product.brand }} - {{ product.category }} | ${{ product.price.toFixed(2) }} | {{ $t('common.stock') }}: {{ product.stock }}
                   </q-item-label>
                 </q-item-section>
                 <q-item-section side>
@@ -36,12 +36,12 @@
                 </q-item-section>
               </q-item>
               <q-item v-if="filteredProducts.length === 0 && !loadingProducts">
-                <q-item-section>No products found.</q-item-section>
+                <q-item-section>{{ $t('pos.failedToFetchProducts') }}</q-item-section>
               </q-item>
               <q-item v-if="loadingProducts">
                 <q-item-section class="text-center">
                   <q-spinner-dots color="primary" size="2em" />
-                  Loading products...
+                  {{ $t('common.loading') }}...
                 </q-item-section>
               </q-item>
             </q-list>
@@ -53,14 +53,14 @@
       <div class="col-12 col-md-4">
         <q-card>
           <q-card-section>
-            <div class="text-h6">Cart</div>
+            <div class="text-h6">{{ $t('pos.cart') }}</div>
           </q-card-section>
           <q-card-section>
             <q-select
               filled
               v-model="selectedCustomer"
               :options="customerOptions"
-              label="Select Customer (Optional)"
+              :label="$t('pos.selectCustomerOptional')"
               emit-value
               map-options
               option-value="id"
@@ -82,13 +82,13 @@
                 </q-item-section>
               </q-item>
               <q-item v-if="cart.length === 0">
-                <q-item-section>Cart is empty.</q-item-section>
+                <q-item-section>{{ $t('pos.cartIsEmpty') }}</q-item-section>
               </q-item>
             </q-list>
             <q-separator class="q-my-md" />
-            <div class="text-h6 text-right">Total: ${{ cartTotal.toFixed(2) }}</div>
+            <div class="text-h6 text-right">{{ $t('pos.total') }}: ${{ cartTotal.toFixed(2) }}</div>
             <q-btn
-              label="Process Sale"
+              :label="$t('pos.processSale')"
               color="positive"
               class="full-width q-mt-md"
               :disable="cart.length === 0"

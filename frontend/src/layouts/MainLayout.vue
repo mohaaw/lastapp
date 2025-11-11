@@ -4,7 +4,7 @@
       <q-toolbar>
         <q-btn flat dense round icon="menu" aria-label="Menu" @click="toggleLeftDrawer" />
 
-        <q-toolbar-title> Your Shop ERP </q-toolbar-title>
+        <q-toolbar-title>{{ $t('common.yourShopErp') }}</q-toolbar-title>
 
         <q-btn v-if="authStore.isLoggedIn" flat round dense icon="logout" @click="logout" />
         <div>Quasar v{{ quasar.version }}</div>
@@ -13,7 +13,7 @@
 
     <q-drawer v-model="leftDrawerOpen" show-if-above bordered>
       <q-list>
-        <q-item-label header> Essential Links </q-item-label>
+        <q-item-label header>{{ $t('navigation.essentialLinks') }}</q-item-label>
 
         <EssentialLink v-for="link in linksList" :key="link.title" v-bind="link" />
       </q-list>
@@ -26,77 +26,79 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue';
+import { ref, computed } from 'vue';
 import { useQuasar } from 'quasar';
-import { useRouter } from 'vue-router'; // Import useRouter
-import { useAuthStore } from 'stores/auth'; // Import useAuthStore
+import { useRouter } from 'vue-router';
+import { useI18n } from 'vue-i18n';
+import { useAuthStore } from 'stores/auth';
 import EssentialLink, { type EssentialLinkProps } from 'components/EssentialLink.vue';
 
 const quasar = useQuasar();
-const authStore = useAuthStore(); // Initialize authStore
-const router = useRouter(); // Initialize router
+const authStore = useAuthStore();
+const router = useRouter();
+const { t } = useI18n();
 
 const logout = () => {
   authStore.logout();
   void router.push('/login');
 };
 
-const linksList: EssentialLinkProps[] = [
+const linksList = computed(() => [
   {
-    title: 'Dashboard',
-    caption: 'Shop Overview',
+    title: t('navigation.dashboard'),
+    caption: t('navigation.dashboardCaption'),
     icon: 'dashboard',
     link: '/',
   },
   {
-    title: 'Customer Management',
-    caption: 'Manage your customers',
+    title: t('navigation.customerManagement'),
+    caption: t('navigation.customerManagementCaption'),
     icon: 'people',
     link: '/customers',
   },
   {
-    title: 'Point of Sale',
-    caption: 'Process sales transactions',
+    title: t('navigation.pointOfSale'),
+    caption: t('navigation.pointOfSaleCaption'),
     icon: 'point_of_sale',
     link: '/pos',
   },
   {
-    title: 'Product Templates',
-    caption: 'Manage product templates',
+    title: t('navigation.productTemplates'),
+    caption: t('navigation.productTemplatesCaption'),
     icon: 'style',
     link: '/product-templates',
   },
   {
-    title: 'Product Variants',
-    caption: 'Manage product variants',
+    title: t('navigation.productVariants'),
+    caption: t('navigation.productVariantsCaption'),
     icon: 'inventory_2',
     link: '/product-variants',
   },
   {
-    title: 'Stock Locations',
-    caption: 'Manage stock locations',
+    title: t('navigation.stockLocations'),
+    caption: t('navigation.stockLocationsCaption'),
     icon: 'warehouse',
     link: '/stock-locations',
   },
   {
-    title: 'Stock Moves',
-    caption: 'Track inventory movements',
+    title: t('navigation.stockMoves'),
+    caption: t('navigation.stockMovesCaption'),
     icon: 'sync_alt',
     link: '/stock-moves',
   },
   {
-    title: 'Maintenance Management',
-    caption: 'Manage repair tickets',
+    title: t('navigation.maintenanceManagement'),
+    caption: t('navigation.maintenanceManagementCaption'),
     icon: 'build',
     link: '/maintenance',
   },
   {
-    title: 'Settings',
-    caption: 'Configure shop settings',
+    title: t('navigation.settings'),
+    caption: t('navigation.settingsCaption'),
     icon: 'settings',
     link: '/settings/general',
   },
-];
+] as EssentialLinkProps[]);
 
 const leftDrawerOpen = ref(false);
 

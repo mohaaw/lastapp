@@ -2,7 +2,7 @@
   <q-page padding>
     <div class="q-pa-md">
       <q-table
-        title="Product Templates"
+        :title="$t('products.productTemplates')"
         :rows="rows"
         :columns="columns"
         row-key="id"
@@ -12,7 +12,7 @@
         binary-state-sort
       >
         <template v-slot:top-right>
-          <q-btn color="primary" icon="add" label="Add Template" @click="openFormDialog()" />
+          <q-btn color="primary" icon="add" :label="$t('products.addTemplate')" @click="openFormDialog()" />
         </template>
         <template v-slot:body-cell-actions="props">
           <q-td :props="props">
@@ -26,25 +26,25 @@
     <q-dialog v-model="formDialog" persistent>
       <q-card style="width: 700px; max-width: 80vw;">
         <q-card-section>
-          <div class="text-h6">{{ form.id ? 'Edit' : 'Add' }} Product Template</div>
+          <div class="text-h6">{{ form.id ? $t('products.editTemplate') : $t('products.addProductTemplate') }}</div>
         </q-card-section>
 
         <q-card-section class="q-pt-none">
           <q-form @submit.prevent="save" class="q-gutter-md">
-            <q-input filled v-model="form.name" label="Name" />
-            <q-input filled v-model="form.description" label="Description" type="textarea" />
-            <q-input filled v-model.number="form.price" label="Default Price" type="number" step="0.01" />
-            <q-input filled v-model="form.sku" label="SKU" />
-            <q-input filled v-model="form.category" label="Category" />
-            <q-input filled v-model="form.brand" label="Brand" />
-            <q-input filled v-model.number="form.cost" label="Cost" type="number" step="0.01" />
-            <q-checkbox v-model="form.hasVariants" label="This product has variants" />
+            <q-input filled v-model="form.name" :label="$t('products.name')" />
+            <q-input filled v-model="form.description" :label="$t('products.description')" type="textarea" />
+            <q-input filled v-model.number="form.price" :label="$t('products.defaultPrice')" type="number" step="0.01" />
+            <q-input filled v-model="form.sku" :label="$t('products.sku')" />
+            <q-input filled v-model="form.category" :label="$t('products.category')" />
+            <q-input filled v-model="form.brand" :label="$t('products.brand')" />
+            <q-input filled v-model.number="form.cost" :label="$t('products.cost')" type="number" step="0.01" />
+            <q-checkbox v-model="form.hasVariants" :label="$t('products.hasVariants')" />
           </q-form>
         </q-card-section>
 
         <q-card-actions align="right">
-          <q-btn flat label="Cancel" v-close-popup />
-          <q-btn flat label="Save" @click="save" color="primary" />
+          <q-btn flat :label="$t('common.cancel')" v-close-popup />
+          <q-btn flat :label="$t('common.save')" @click="save" color="primary" />
         </q-card-actions>
       </q-card>
     </q-dialog>

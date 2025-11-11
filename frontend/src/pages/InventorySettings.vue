@@ -2,16 +2,16 @@
   <q-page padding>
     <q-card>
       <q-card-section>
-        <div class="text-h6">Inventory Settings</div>
-        <div class="text-subtitle2">Configure inventory and warranty details.</div>
+        <div class="text-h6">{{ $t('inventorySettings.inventorySettings') }}</div>
+        <div class="text-subtitle2">{{ $t('inventorySettings.configureInventorySettings') }}</div>
       </q-card-section>
       <q-separator />
       <q-card-section>
         <q-form @submit.prevent="saveSettings" class="q-gutter-md">
-          <q-input v-model="form.defaultWarehouse" label="Default Warehouse Location" filled />
-          <q-input v-model="form.warrantyPolicy" label="Warranty Policy" type="textarea" filled />
+          <q-input v-model="form.defaultWarehouse" :label="$t('inventorySettings.defaultWarehouse')" filled />
+          <q-input v-model="form.warrantyPolicy" :label="$t('inventorySettings.warrantyPolicy')" filled type="textarea" />
           <div class="q-pt-md">
-            <q-btn label="Save" type="submit" color="primary" />
+            <q-btn :label="$t('common.save')" type="submit" color="primary" />
           </div>
         </q-form>
       </q-card-section>

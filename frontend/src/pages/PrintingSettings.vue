@@ -2,16 +2,15 @@
   <q-page padding>
     <q-card>
       <q-card-section>
-        <div class="text-h6">{{ $t('emailSettings.emailSettings') }}</div>
-        <div class="text-subtitle2">{{ $t('emailSettings.configureEmailSettings') }}</div>
+        <div class="text-h6">{{ $t('printingSettings.printingSettings') }}</div>
+        <div class="text-subtitle2">{{ $t('printingSettings.configurePrinting') }}</div>
       </q-card-section>
       <q-separator />
       <q-card-section>
         <q-form @submit.prevent="saveSettings" class="q-gutter-md">
-          <q-input v-model="form.smtpHost" :label="$t('emailSettings.smtpHost')" filled />
-          <q-input v-model.number="form.smtpPort" :label="$t('emailSettings.smtpPort')" type="number" filled />
-          <q-input v-model="form.smtpUser" :label="$t('emailSettings.smtpUser')" filled />
-          <q-input v-model="form.smtpPass" :label="$t('emailSettings.smtpPass')" type="password" filled />
+          <q-input v-model="form.invoiceHeader" :label="$t('printingSettings.invoiceHeader')" filled type="textarea" rows="3" />
+          <q-input v-model="form.invoiceFooter" :label="$t('printingSettings.invoiceFooter')" filled type="textarea" rows="3" />
+          <!-- TODO: Add q-file for logoForPrint -->
           <div class="q-pt-md">
             <q-btn :label="$t('common.save')" type="submit" color="primary" />
           </div>
@@ -26,17 +25,15 @@ import { ref, onMounted } from 'vue';
 import { useQuasar } from 'quasar';
 import { api } from 'boot/axios';
 
-interface EmailSettings {
-  smtpHost: string;
-  smtpPort: number;
-  smtpUser: string;
-  smtpPass: string;
+interface PrintingSettings {
+  invoiceHeader: string;
+  invoiceFooter: string;
 }
 
 const $q = useQuasar();
-const form = ref<Partial<EmailSettings>>({});
+const form = ref<Partial<PrintingSettings>>({});
 
-const endpoint = 'email-setting';
+const endpoint = 'printing-setting';
 
 const fetchSettings = async () => {
   try {
