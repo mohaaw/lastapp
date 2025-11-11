@@ -87,6 +87,30 @@ const linksList = computed(() => [
     link: '/stock-moves',
   },
   {
+    title: t('navigation.suppliers'),
+    caption: t('navigation.suppliersCaption'),
+    icon: 'local_shipping',
+    link: '/suppliers',
+  },
+  {
+    title: t('navigation.purchaseOrders'),
+    caption: t('navigation.purchaseOrdersCaption'),
+    icon: 'receipt',
+    link: '/purchase-orders',
+  },
+  {
+    title: t('navigation.chartOfAccounts'),
+    caption: t('navigation.chartOfAccountsCaption'),
+    icon: 'account_balance',
+    link: '/chart-of-accounts',
+  },
+  {
+    title: t('navigation.journalEntries'),
+    caption: t('navigation.journalEntriesCaption'),
+    icon: 'book',
+    link: '/journal-entries',
+  },
+  {
     title: t('navigation.maintenanceManagement'),
     caption: t('navigation.maintenanceManagementCaption'),
     icon: 'build',

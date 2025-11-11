@@ -1,0 +1,25 @@
+{
+  "kind": "singletonType",
+  "collectionName": "accounting_settings",
+  "info": {
+    "singularName": "accounting-settings",
+    "pluralName": "accounting-settings",
+    "displayName": "Accounting Settings",
+    "description": "Configuration for accounting module"
+  },
+  "options": {
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "defaultPaymentTerms": {
+      "type": "string",
+      "maxLength": 500
+    },
+    "defaultSalesAccount": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::chart-of-account.chart-of-account"
+    }
+  }
+}

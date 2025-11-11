@@ -982,6 +982,56 @@ export interface ApiStockMoveStockMove extends Struct.CollectionTypeSchema {
   };
 }
 
+export interface ApiSupplierSupplier extends Struct.CollectionTypeSchema {
+  collectionName: 'suppliers';
+  info: {
+    description: 'Suppliers for purchase orders and inventory acquisition';
+    displayName: 'Supplier';
+    pluralName: 'suppliers';
+    singularName: 'supplier';
+  };
+  options: {
+    draftAndPublish: false;
+    increments: true;
+    timestamps: true;
+  };
+  attributes: {
+    address: Schema.Attribute.RichText;
+    contactPerson: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+      }>;
+    createdAt: Schema.Attribute.DateTime;
+    createdBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+    email: Schema.Attribute.Email;
+    locale: Schema.Attribute.String & Schema.Attribute.Private;
+    localizations: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::supplier.supplier'
+    > &
+      Schema.Attribute.Private;
+    name: Schema.Attribute.String &
+      Schema.Attribute.Required &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 255;
+        minLength: 1;
+      }>;
+    phone: Schema.Attribute.String &
+      Schema.Attribute.SetMinMaxLength<{
+        maxLength: 20;
+      }>;
+    publishedAt: Schema.Attribute.DateTime;
+    purchaseOrders: Schema.Attribute.Relation<
+      'oneToMany',
+      'api::purchase-order.purchase-order'
+    >;
+    updatedAt: Schema.Attribute.DateTime;
+    updatedBy: Schema.Attribute.Relation<'oneToOne', 'admin::user'> &
+      Schema.Attribute.Private;
+  };
+}
+
 export interface ApiUserRoleSettingUserRoleSetting
   extends Struct.SingletonSchema {
   collectionName: 'user_role_settings';
@@ -1536,6 +1586,7 @@ declare module '@strapi/strapi' {
       'api::product-variant.product-variant': ApiProductVariantProductVariant;
       'api::stock-location.stock-location': ApiStockLocationStockLocation;
       'api::stock-move.stock-move': ApiStockMoveStockMove;
+      'api::supplier.supplier': ApiSupplierSupplier;
       'api::user-role-setting.user-role-setting': ApiUserRoleSettingUserRoleSetting;
       'plugin::content-releases.release': PluginContentReleasesRelease;
       'plugin::content-releases.release-action': PluginContentReleasesReleaseAction;

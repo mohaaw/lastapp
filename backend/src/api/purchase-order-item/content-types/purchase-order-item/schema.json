@@ -1,0 +1,40 @@
+{
+  "kind": "collectionType",
+  "collectionName": "purchase_order_items",
+  "info": {
+    "singularName": "purchase-order-item",
+    "pluralName": "purchase-order-items",
+    "displayName": "Purchase Order Item",
+    "description": "Individual items in a purchase order"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "quantity": {
+      "type": "integer",
+      "required": true,
+      "min": 1,
+      "default": 1
+    },
+    "costPrice": {
+      "type": "decimal",
+      "required": true,
+      "default": 0
+    },
+    "purchaseOrder": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::purchase-order.purchase-order",
+      "inversedBy": "items"
+    },
+    "productVariant": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::product-variant.product-variant"
+    }
+  }
+}

@@ -132,6 +132,46 @@ This document tracks the progress of the "Your Shop" ERP system development.
 96. **Frontend (`ProductVariantsPage.vue`):** Fixed no-unused-vars errors by removing unused error parameter in catch blocks.
 97. **Frontend (`StockLocationsPage.vue`):** Fixed no-unused-vars errors by removing unused error parameter in catch blocks.
 98. **Frontend (`StockMovesPage.vue`):** Fixed no-unused-vars errors by removing unused error parameter in catch blocks.
+99. **Backend (`supplier`):** Created supplier collection type with fields: name (required), contactPerson, email, phone, address, and purchaseOrders relation.
+100. **Backend (`purchase-order`):** Created purchase-order collection type with fields: reference (required, unique), status (draft/ordered/received), totalAmount, supplier relation, and items relation.
+101. **Backend (`purchase-order-item`):** Created purchase-order-item collection type with fields: quantity, costPrice, purchaseOrder relation, and productVariant relation.
+102. **Backend (`stock-location`):** Added isSupplierLocation boolean field to stock-location schema.
+103. **Backend (`accounting-settings`):** Created accounting-settings singleton with fields: defaultPaymentTerms and defaultSalesAccount relation to chart-of-account.
+104. **Backend (`chart-of-account`):** Created chart-of-account collection type with fields: accountName (required), accountCode (required, unique), and accountType (asset/liability/equity/revenue/expense).
+105. **Backend (`journal-entry`):** Created journal-entry collection type with fields: date (required), description (required), and entries (JSON, required).
+106. **Frontend (`SuppliersPage.vue`):** Created suppliers management page for CRUD operations on suppliers.
+107. **Frontend (`PurchaseOrdersPage.vue`):** Created purchase orders management page for CRUD operations on purchase orders and their items.
+108. **Frontend (`ChartOfAccountsPage.vue`):** Created chart of accounts management page for accounting module.
+109. **Frontend (`JournalEntriesPage.vue`):** Created journal entries management page for accounting module.
+110. **Boot (`i18n.ts`):** Created i18n boot file with vue-i18n configuration for English and Arabic languages.
+111. **Boot (`theme.ts`):** Created theme boot file for language and theme color loading from localStorage.
+112. **i18n (`en-US/index.ts`):** Created English translation file with 150+ keys across 13 namespaces.
+113. **i18n (`ar-EG/index.ts`):** Created Arabic translation file with full Arabic translations for all 150+ keys.
+114. **Types (`i18n.d.ts`):** Created TypeScript type augmentation for $t global property.
+115. **Frontend (`PrintingSettings.vue`):** Created printing settings page with invoice header/footer configuration using i18n keys.
+116. **Frontend (`IntegrationSettings.vue`):** Created integration settings page with Google Maps API key and WhatsApp token using i18n keys.
+117. **Frontend (`UserRoleSettings.vue`):** Created user role settings placeholder page using i18n keys.
+118. **Frontend (`AppSettings.vue`):** Updated to include language selector and 4-color theme picker with localStorage persistence, RTL support, using i18n keys.
+119. **Audit Finding:** ChartOfAccountsPage.vue and JournalEntriesPage.vue exist but are missing from MainLayout.vue navigation and routes.ts.
+120. **Audit Finding:** SuppliersPage.vue and PurchaseOrdersPage.vue use 'purchasing' namespace that doesn't exist in i18n files (defect).
+121. **Frontend Refactoring:** Confirmed i18n refactoring for 18+ .vue files including Dashboard, Suppliers, PurchaseOrders, and other pages using $t(...) i18n keys.
+122. **Documentation (`steps and reports.md`):** Updated Navigation Bar Content and Next Step sections to reflect all new modules including Suppliers, Purchase Orders, Chart of Accounts, Journal Entries, and enhanced settings.
+123. **i18n (`en-US/index.ts`):** Added translations for accounting navigation items: chartOfAccounts, journalEntries, suppliers, purchaseOrders.
+124. **i18n (`ar-EG/index.ts`):** Added Arabic translations for accounting navigation items: chartOfAccounts, journalEntries, suppliers, purchaseOrders.
+125. **Frontend (`MainLayout.vue`):** Added Chart of Accounts and Journal Entries navigation links with i18n keys.
+126. **Frontend (`routes.ts`):** Added routes for ChartOfAccountsPage.vue and JournalEntriesPage.vue.
+127. **Backend (`purchase-order` controller):** Added custom receive endpoint to handle receiving products logic, creating StockMove records from supplier to warehouse.
+128. **Backend (`purchase-order` routes):** Added POST /api/purchase-orders/:id/receive route for receiving products functionality.
+129. **Frontend (`PurchaseOrdersPage.vue`):** Added 'Receive Products' button that calls the receive endpoint when purchase order status is 'ordered'.
+130. **i18n (`en-US/index.ts`):** Added complete purchasing namespace with all required translation keys.
+131. **i18n (`ar-EG/index.ts`):** Added complete Arabic purchasing namespace with all required translation keys.
+132. **Documentation (`steps and reports.md`):** Fixed duplicate keys in i18n files by removing duplicated navigation entries from purchasing section.
+133. **Frontend (`JournalEntriesPage.vue`):** Fixed duplicate 'flat' attribute in q-table component.
+134. **Frontend (`PurchaseOrdersPage.vue`):** Fixed duplicate 'flat' attribute in q-table component.
+135. **i18n (`en-US/index.ts` & `ar-EG/index.ts`):** Added complete accounting namespace with all required translation keys.
+136. **Frontend (`ChartOfAccountsPage.vue`):** Fixed usage of non-existent translation keys 'account' and 'accountType.label'.
+137. **TypeScript (`JournalEntriesPage.vue`):** Fixed type issues with date field and JournalEntryRecord interface to handle null values properly.
+138. **TypeScript (`PurchaseOrdersPage.vue`):** Fixed type issue with supplier field to properly handle number/null values instead of Supplier object.
 
 
 ### Navigation Bar Content
@@ -141,56 +181,68 @@ The following links are present in the final application's navigation bar, as de
 ```javascript
 const linksList: EssentialLinkProps[] = [
   {
-    title: 'Dashboard',
-    caption: 'Shop Overview',
+    title: t('navigation.dashboard'),
+    caption: t('navigation.dashboardCaption'),
     icon: 'dashboard',
     link: '/',
   },
   {
-    title: 'Product Templates',
-    caption: 'Manage product templates',
-    icon: 'inventory_2',
-    link: '/product-templates',
-  },
-  {
-    title: 'Product Variants',
-    caption: 'Manage product variants',
-    icon: 'badge',
-    link: '/product-variants',
-  },
-  {
-    title: 'Stock Locations',
-    caption: 'Manage stock locations',
-    icon: 'warehouse',
-    link: '/stock-locations',
-  },
-  {
-    title: 'Stock Moves',
-    caption: 'Manage stock movements',
-    icon: 'transfer_within_a_station',
-    link: '/stock-moves',
-  },
-  {
-    title: 'Customer Management',
-    caption: 'Manage your customers',
+    title: t('navigation.customerManagement'),
+    caption: t('navigation.customerManagementCaption'),
     icon: 'people',
     link: '/customers',
   },
   {
-    title: 'Point of Sale',
-    caption: 'Process sales transactions',
+    title: t('navigation.pointOfSale'),
+    caption: t('navigation.pointOfSaleCaption'),
     icon: 'point_of_sale',
     link: '/pos',
   },
   {
-    title: 'Maintenance Management',
-    caption: 'Manage repair tickets',
+    title: t('navigation.productTemplates'),
+    caption: t('navigation.productTemplatesCaption'),
+    icon: 'style',
+    link: '/product-templates',
+  },
+  {
+    title: t('navigation.productVariants'),
+    caption: t('navigation.productVariantsCaption'),
+    icon: 'inventory_2',
+    link: '/product-variants',
+  },
+  {
+    title: t('navigation.stockLocations'),
+    caption: t('navigation.stockLocationsCaption'),
+    icon: 'warehouse',
+    link: '/stock-locations',
+  },
+  {
+    title: t('navigation.stockMoves'),
+    caption: t('navigation.stockMovesCaption'),
+    icon: 'sync_alt',
+    link: '/stock-moves',
+  },
+  {
+    title: t('navigation.suppliers'),
+    caption: t('navigation.suppliersCaption'),
+    icon: 'local_shipping',
+    link: '/suppliers',
+  },
+  {
+    title: t('navigation.purchaseOrders'),
+    caption: t('navigation.purchaseOrdersCaption'),
+    icon: 'receipt',
+    link: '/purchase-orders',
+  },
+  {
+    title: t('navigation.maintenanceManagement'),
+    caption: t('navigation.maintenanceManagementCaption'),
     icon: 'build',
     link: '/maintenance',
   },
   {
-    title: 'Settings',
-    caption: 'Configure shop settings',
+    title: t('navigation.settings'),
+    caption: t('navigation.settingsCaption'),
     icon: 'settings',
     link: '/settings/general',
   },
@@ -210,10 +262,12 @@ All features on the roadmap are now implemented and final bug fixes have been ap
 4.  **Strapi Permissions for Invoice Item Module:** Grant `find`, `findOne`, `create` permissions to the `Authenticated` role for the `Invoice Item` collection type.
 5.  **Strapi Permissions for Maintenance Module:** Grant full CRUD permissions to the `Authenticated` role for the `Maintenance` collection type.
 6.  **Strapi Permissions for Dashboard Stats:** Grant `getDashboardStats` permission to the `Authenticated` role for the `Invoice` collection type.
-7.  **Strapi Permissions for Settings (Singletons):** For `general-setting`, `financial-setting`, `inventory-setting`, and `email-setting`, grant `find` and `update` permissions to the `Authenticated` role.
+7.  **Strapi Permissions for Settings (Singletons):** For `general-setting`, `financial-setting`, `inventory-setting`, `email-setting`, `printing-setting`, `user-role-setting`, and `integration-setting`, grant `find` and `update` permissions to the `Authenticated` role.
 8.  **Strapi Permissions for Advanced Products Module:** Grant full CRUD permissions to the `Authenticated` role for `product-template`, `product-variant`, `stock-location`, and `stock-move` collection types.
-9.  **Create Sample Customer Data (Optional but Recommended for Testing):** Add a sample customer via the Strapi Content Manager.
-10. **Update Sample Product Data with Cost (Optional but Recommended for Dashboard Profit Calculation):** Add a `cost` value to your sample product via the Strapi Content Manager.
+9.  **Strapi Permissions for Purchasing Module:** Grant full CRUD permissions to the `Authenticated` role for `supplier`, `purchase-order`, and `purchase-order-item` collection types.
+10. **Strapi Permissions for Accounting Module:** Grant full CRUD permissions to the `Authenticated` role for `chart-of-account` and `journal-entry` collection types. Grant `find` and `update` permissions for `accounting-settings` singleton.
+11. **Create Sample Customer Data (Optional but Recommended for Testing):** Add a sample customer via the Strapi Content Manager.
+12. **Update Sample Product Data with Cost (Optional but Recommended for Dashboard Profit Calculation):** Add a `cost` value to your sample product via the Strapi Content Manager.
 
 **After completing the manual steps, restart your frontend development server.**
 
@@ -229,5 +283,10 @@ All features on the roadmap are now implemented and final bug fixes have been ap
 9.  **Customer Module:** Test Add, Edit, Delete customer functionality.
 10. **Point of Sale (POS) Module:** Test adding products to cart, selecting customer, processing sale, and verifying data in Strapi (Invoice, Invoice Item, updated Product stock).
 11. **Maintenance Module:** Test Add, Edit, Delete maintenance tickets.
+12. **Supplier Module:** Test Add, Edit, Delete supplier functionality.
+13. **Purchase Orders Module:** Test Add, Edit, Delete purchase order functionality and manage purchase order items.
+14. **Chart of Accounts Module:** Test Add, Edit, Delete chart of accounts functionality.
+15. **Journal Entries Module:** Test Add, Edit, Delete journal entry functionality.
+16. **Settings Modules:** Test all settings pages including printing, integrations, and user roles.
 
 **Finally, review the provided Final Deployment Plan for deploying the application to the Windows 11 Production Server.**

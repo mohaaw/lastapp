@@ -1,0 +1,44 @@
+{
+  "kind": "collectionType",
+  "collectionName": "suppliers",
+  "info": {
+    "singularName": "supplier",
+    "pluralName": "suppliers",
+    "displayName": "Supplier",
+    "description": "Suppliers for purchase orders and inventory acquisition"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "name": {
+      "type": "string",
+      "required": true,
+      "minLength": 1,
+      "maxLength": 255
+    },
+    "contactPerson": {
+      "type": "string",
+      "maxLength": 255
+    },
+    "email": {
+      "type": "email"
+    },
+    "phone": {
+      "type": "string",
+      "maxLength": 20
+    },
+    "address": {
+      "type": "richtext"
+    },
+    "purchaseOrders": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::purchase-order.purchase-order",
+      "mappedBy": "supplier"
+    }
+  }
+}

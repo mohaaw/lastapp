@@ -1,0 +1,47 @@
+{
+  "kind": "collectionType",
+  "collectionName": "purchase_orders",
+  "info": {
+    "singularName": "purchase-order",
+    "pluralName": "purchase-orders",
+    "displayName": "Purchase Order",
+    "description": "Purchase orders for acquiring inventory from suppliers"
+  },
+  "options": {
+    "increments": true,
+    "timestamps": true,
+    "draftAndPublish": false
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "reference": {
+      "type": "string",
+      "required": true,
+      "unique": true,
+      "maxLength": 50
+    },
+    "status": {
+      "type": "enumeration",
+      "enum": ["draft", "ordered", "received"],
+      "default": "draft",
+      "required": true
+    },
+    "totalAmount": {
+      "type": "decimal",
+      "required": true,
+      "default": 0
+    },
+    "supplier": {
+      "type": "relation",
+      "relation": "manyToOne",
+      "target": "api::supplier.supplier",
+      "inversedBy": "purchaseOrders"
+    },
+    "items": {
+      "type": "relation",
+      "relation": "oneToMany",
+      "target": "api::purchase-order-item.purchase-order-item",
+      "mappedBy": "purchaseOrder"
+    }
+  }
+}
